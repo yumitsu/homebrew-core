@@ -6,7 +6,7 @@ class Dte < Formula
   head "https://github.com/craigbarnes/dte.git"
 
   def install
-    system "make", "-j"
+    system "make", "-j#{ENV.make_jobs}"
     system "make", "prefix=#{prefix}", "install"
   end
 
