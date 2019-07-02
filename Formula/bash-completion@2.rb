@@ -25,6 +25,7 @@ class BashCompletionAT2 < Formula
 
   def install
     inreplace "bash_completion", "readlink -f", "readlink"
+    inreplace "install-sh", "/usr/bin/sh", "/bin/sh"
 
     system "autoreconf", "-i" if build.head?
     system "./configure", "--prefix=#{prefix}"
