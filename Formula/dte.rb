@@ -10,6 +10,6 @@ class Dte < Formula
   end
 
   test do
-    assert_equal "20", shell_output("#{bin}/dte -b compiler/gcc | wc -l")
+    assert_equal "20", shell_output("#{bin}/dte -b compiler/gcc | wc -l").strip
   end
 end
