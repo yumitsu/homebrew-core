@@ -1,19 +1,18 @@
 class Csound < Formula
   desc "Sound and music computing system"
   homepage "https://csound.com"
-  url "https://github.com/csound/csound/archive/6.12.2.tar.gz"
-  sha256 "39f4872b896eb1cbbf596fcacc0f2122fd3e5ebbb5cec14a81b4207d6b8630ff"
-  revision 2
+  url "https://github.com/csound/csound/archive/6.13.0.tar.gz"
+  sha256 "183beeb3b720bfeab6cc8af12fbec0bf9fef2727684ac79289fd12d0dfee728b"
 
   bottle do
-    sha256 "0b391ad5c63f24dff9f82b95545c2868f917ae1beadfea5dc4a1e4011b98f610" => :mojave
-    sha256 "9f63f9c43fb7a3c48c7ea94b67a45149de337b6da6d8561b1cca039ca0320d08" => :high_sierra
-    sha256 "3f003ad77d5abbc304cb60f16cf6d1fed60058f540d83f16be146e12d791f332" => :sierra
+    rebuild 1
+    sha256 "4a0fa1f8ec2917537b85cda49a81f13bbb1bf06315e7087a113695a200193928" => :mojave
+    sha256 "d93d96c20dad0262733005467dec26780a30c0feda98b63dd45715ae2736e0dd" => :high_sierra
+    sha256 "915e0516480fcdaf2dfe0d2ae636b7249fc68740e928d525bda3adbb4b2c0722" => :sierra
   end
 
   depends_on "cmake" => :build
   depends_on "python" => [:build, :test]
-  depends_on "python@2" => [:build, :test]
   depends_on "fltk"
   depends_on "liblo"
   depends_on "libsamplerate"
@@ -27,16 +26,13 @@ class Csound < Formula
   conflicts_with "pkcrack", :because => "both install `extract` binaries"
 
   def install
-    inreplace "CMakeLists.txt",
-      %r{^set\(CS_FRAMEWORK_DEST\s+"~/Library/Frameworks"\)$},
-      "set(CS_FRAMEWORK_DEST \"#{frameworks}\")"
-
     args = std_cmake_args + %W[
       -DBUILD_FLUID_OPCODES=OFF
       -DBUILD_JAVA_INTERFACE=OFF
       -DBUILD_LUA_INTERFACE=OFF
       -DBUILD_PYTHON_INTERFACE=OFF
       -DCMAKE_INSTALL_RPATH=#{frameworks}
+      -DCS_FRAMEWORK_DEST:PATH=#{frameworks}
     ]
 
     mkdir "build" do
@@ -48,12 +44,10 @@ class Csound < Formula
 
     libexec.install "#{buildpath}/interfaces/ctcsound.py"
 
-    ["python2", "python3"].each do |python|
-      version = Language::Python.major_minor_version python
-      (lib/"python#{version}/site-packages/homebrew-csound.pth").write <<~EOS
-        import site; site.addsitedir('#{libexec}')
-      EOS
-    end
+    version = Language::Python.major_minor_version "python3"
+    (lib/"python#{version}/site-packages/homebrew-csound.pth").write <<~EOS
+      import site; site.addsitedir('#{libexec}')
+    EOS
   end
 
   def caveats; <<~EOS
@@ -92,7 +86,6 @@ class Csound < Formula
 
     ENV["DYLD_FRAMEWORK_PATH"] = "#{opt_prefix}/Frameworks"
 
-    system "python2", "-c", "import ctcsound"
     system "python3", "-c", "import ctcsound"
   end
 end

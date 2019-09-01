@@ -1,14 +1,14 @@
 class Ucloud < Formula
   desc "The official tool to managment your ucloud services"
   homepage "https://www.ucloud.cn"
-  url "https://github.com/ucloud/ucloud-cli/archive/0.1.18.tar.gz"
-  sha256 "ed57f68ce795dfc31dff047555c2aad70fdd6d9ff5528773c1d0ac57037f962f"
+  url "https://github.com/ucloud/ucloud-cli/archive/0.1.23.tar.gz"
+  sha256 "a7d4ee43320e31514b17d6deb8768da2c2a6c84dc741c20082bc98683b3fde9a"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "7ac61e42a536f0911b77a6afab5da33af43db5c6723a582bbf13d9077a039dee" => :mojave
-    sha256 "b137090d8c0bb6ae4aa49f66cac66e6cbc98cf9ae2f5cab419e64c0e305b8f76" => :high_sierra
-    sha256 "dc32d2488777be54e59ec8b5169c25ecd9a766c2b6a9bbd32c7387a3b4457a13" => :sierra
+    sha256 "f64a91d4c9d7ccd461b50b0633dcf213205c1977b90eac63f45ae9b9405c788c" => :mojave
+    sha256 "c45290e25dddc955b3720d736406f2e9f62ee7a393b23b029d9340d77a345add" => :high_sierra
+    sha256 "2a0f5472de04428eebf2b89277d58a85b7164e4784fec94180e526b1aca3e8c5" => :sierra
   end
 
   depends_on "go" => :build
@@ -17,7 +17,7 @@ class Ucloud < Formula
     dir = buildpath/"src/github.com/ucloud/ucloud-cli"
     dir.install buildpath.children
     cd dir do
-      system "go", "build", "-o", bin/"ucloud"
+      system "go", "build", "-mod=vendor", "-o", bin/"ucloud"
       prefix.install_metafiles
     end
   end

@@ -3,14 +3,15 @@ require "language/node"
 class FirebaseCli < Formula
   desc "Firebase command-line tools"
   homepage "https://firebase.google.com/docs/cli/"
-  url "https://registry.npmjs.org/firebase-tools/-/firebase-tools-7.0.2.tgz"
-  sha256 "9314257cf86d265faa8c56b44e3d221fd9f96d36568fb30dd5e613c55d30404e"
+  url "https://registry.npmjs.org/firebase-tools/-/firebase-tools-7.3.0.tgz"
+  sha256 "9d354518bccc0f025fb9fc44c162ebc68fd8a32b62ff25f23cf3ac5ea5bf4cd3"
   head "https://github.com/firebase/firebase-tools.git"
 
   bottle do
-    sha256 "4588ef191a6905c12a55aea6cb7314ddab3206037070a08d001e15919653d2a3" => :mojave
-    sha256 "4ec8b476521d2f42d25aef44ae135f64e26f2c6eb582fc4bb2791bbe73ed62d0" => :high_sierra
-    sha256 "8cc86abad4748f324570513d565080b0927f891ee66b3b551d9c1a1c4808dcab" => :sierra
+    cellar :any_skip_relocation
+    sha256 "bc9e516292a6ee29111bacc261c4339e5575e22edd9b532853d1a40d4557a02e" => :mojave
+    sha256 "1f0b0c1a3cd213d8a579191034a638c2b3fecc3173294de635416c16425ec07f" => :high_sierra
+    sha256 "8b9af90fa76d4d350db6af94a7eb8609157f3f2594477ddcf8eeb5799e9194a6" => :sierra
   end
 
   depends_on "node"

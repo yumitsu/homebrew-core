@@ -1,15 +1,15 @@
 class Ponyc < Formula
   desc "Object-oriented, actor-model, capabilities-secure programming language"
   homepage "https://www.ponylang.org/"
-  url "https://github.com/ponylang/ponyc/archive/0.29.0.tar.gz"
-  sha256 "9e20afeaf46343633fc93f995a15a62acd01b42943050c7c282381e4a0144241"
+  url "https://github.com/ponylang/ponyc/archive/0.31.0.tar.gz"
+  sha256 "74bb8ccbfc4201e14a2f66502033397d63179f073be04ee366a66d329dd56778"
   head "https://github.com/ponylang/ponyc.git"
 
   bottle do
     cellar :any
-    sha256 "a6da68edb5aad4cdb1e39bc5c6509e9636ed78d4faf432b4b825463efdea30e8" => :mojave
-    sha256 "2d63624c18fb2409b260f954f66f48f55a43d8c33c5b522b69d6ddedfe726b35" => :high_sierra
-    sha256 "21b9bd000ff7d3859b1e68d13dfff75a123df121ee1bc711ec538a02124c6a76" => :sierra
+    sha256 "655afafb64d7b0b4cdeb03dd4c4d630ce9a2492c3939562eec9024c75182ced1" => :mojave
+    sha256 "94ba5d35ffe02c3034c213b12ed5f6db2c1782f06e5d4ff812e0b83b50f8f558" => :high_sierra
+    sha256 "847c0653e378ed949248256d459896c875a8d652279769dd88dc1ebb996850c8" => :sierra
   end
 
   # https://github.com/ponylang/ponyc/issues/1274
@@ -21,10 +21,8 @@ class Ponyc < Formula
     satisfy { DevelopmentTools.clang_build_version >= 800 }
   end
 
-  depends_on "libressl"
   depends_on "llvm@7"
   depends_on :macos => :yosemite
-  depends_on "pcre2"
 
   def install
     ENV.cxx11
